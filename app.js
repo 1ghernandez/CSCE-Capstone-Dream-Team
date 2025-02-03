@@ -18,7 +18,7 @@ const sessionConfig = require('./src/Config/config_session'); // imported from c
 const { connectToDatabase } = require('./src/Config/dbh'); // imported from dbh file
 const registerRoutes = require('./src/Routes/registerRoutes'); // routes for user registration functionality
 const loginRoutes = require('./src/Routes/loginRoutes'); // routes for user login functionality
-const progressRoutes = require('./routes/progressRoutes'); // routes for user progress
+const progressRoutes = require('./src/Routes/progressRoutes'); // routes for user progress
 const PORT = process.env.PORT || 4000; 
 const ejs = require('ejs'); // ejs is a templating engine for rendering HTML
 const cookieParser = require('cookie-parser'); 
@@ -117,7 +117,7 @@ app.post('/api/logout', (req, res) => {
 // API routes
 app.use('/api', registerRoutes);
 app.use('/api', loginRoutes);
-app.use('/progress', progressRoutes);
+app.use('/api', progressRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
