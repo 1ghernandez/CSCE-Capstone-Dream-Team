@@ -72,7 +72,42 @@
             <% if (user) { %>
                 <h1>Welcome, <%= user %>!</h1>
             <% } %>
+            
             <p>Your Progress So Far!</p>
+            <div class="progress_container">
+                <div class="progress_bar" id="progress_bar">0%</div>
+            </div>
+
+            <script>
+                const userId = "<%= id %>"; // Injected from the server
+        
+                async function fetchProgress() {
+                    try {
+                        const response = await fetch(`/progress/fetch/${userId}`);
+                        const data = await response.json();
+        
+                        if (response.ok) {
+                            updateProgressBar(data.progress);
+                        } else {
+                            console.error("Error fetching progress:", data.error);
+                        }
+                    } catch (error) {
+                        console.error("Failed to fetch progress:", error);
+                    }
+                }
+        
+                function updateProgressBar(progress) {
+                    const progress_bar = document.getElementById('progress_bar');
+                    progress_bar.style.width = `${progress}%`;
+                    progress_bar.textContent = `${progress}%`;
+                }
+        
+                // Fetch and update progress when the page loads
+                fetchProgress();
+        
+                // Optional: Refresh progress every 10 seconds
+                setInterval(fetchProgress, 10000);
+            </script>
         </div>
     </div>
     

@@ -114,6 +114,16 @@ app.post('/api/logout', (req, res) => {
     });
 });
 
+// Define the progress route
+app.get('/api/progress', (req, res) => {
+    if (!req.session.userId) {
+        return res.redirect('/api/login'); // Redirect if not logged in
+    }
+
+    res.render('progress', { id: req.session.userId });
+});
+
+
 // API routes
 app.use('/api', registerRoutes);
 app.use('/api', loginRoutes);
